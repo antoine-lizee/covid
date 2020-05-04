@@ -100,8 +100,8 @@ nyt_us %>%
 
 
 # Log graphs, adjusted --------------------------------------------------------------
-
-make_log_graph <- function(df, first_date, y, selected_states = c("California", "New York", "Oregon", "Washington"), pop_limit = 5e6, custom_palette_name = "Set1") {
+selected_us_states <- c("California", "New York", "Oregon", "Washington")
+make_log_graph <- function(df, first_date, y, selected_states = selected_us_states, pop_limit = 5e6, custom_palette_name = "Set1") {
   q_first_date <- enquo(first_date)
   q_y <- enquo(y)
   filtered_data <- df %>% filter(date > !! q_first_date, current_death > 100, !! q_y > 0, pop > pop_limit)
@@ -113,7 +113,9 @@ make_log_graph <- function(df, first_date, y, selected_states = c("California", 
     geom_line(data = . %>% filter(state %in% selected_states), size = 2, show.legend = FALSE) +
     geom_label(data = . %>% get_labels_from_last() %>% filter(state %in% selected_states), aes(label = sprintf('%s (%.0f)', state, !! q_y)), hjust = -0.1, show.legend = FALSE) +
     scale_size_manual(values=c(0.7, 2), guide = FALSE) +
-    theme_minimal() + theme(text = element_text(size = 14))
+    theme_minimal() +
+    theme(text = element_text(size = 11),
+          plot.title = element_text(hjust = 0.5))
   if (!is.na(custom_palette_name)) {
     n_states <- filtered_data %>% distinct(state) %>% nrow
     # state_colors <- colorRampPalette(brewer.pal(8, custom_palette_name))(n_states)
@@ -191,55 +193,61 @@ ecdc %>% make_log_graph(first_deaths_in_pop_date, deaths_in_pop, selected_states
 ecdc %>% make_log_graph(first_deaths_in_pop_date, mortality_7d, selected_states = highlighted_countries)
 
 
-
 # Conclusion --------------------------------------------------------------
 
-library(scales)
-library(RColorBrewer)
-library(wesanderson)
-
 ### Deaths per day in the US -- notice weekend dips
-nyt_us %>% 
+deaths_per_day <- nyt_us %>% 
   group_by(date) %>% summarize_at(vars(contains('d_deaths')), sum, na.rm = TRUE) %>%
   ggplot(aes(x = date, y = d_deaths)) +
   geom_bar(stat = 'identity') + 
   geom_line(aes(y = d_deaths_7d / 7)) +
   theme_minimal() + 
   scale_y_continuous(labels = scales::comma) + 
-  labs(x = "Date", y = "Number of deaths") + 
-  theme(text = element_text(size = 14))
-
-### Color palettes
-nb.cols <- 23
-mycolors <- colorRampPalette(brewer.pal(8, "Set1"))(nb.cols)
-wes_colors <- wes_palette("Zissou1", nb.cols, type = "continuous")
-
-country_cols <- 10
-country_colors <- colorRampPalette(brewer.pal(8, "Set1"))(country_cols)
+  labs(x = "Date", y = "Number of deaths", title = "Reported deaths per day in the US") + 
+  theme(text = element_text(size = 11),
+        plot.title = element_text(hjust = 0.5))
 
 ### Incidence by US state
-nyt_us %>% mutate(state = reorder(state, current_death)) %>%
-  make_log_graph(first_prevalence_date, incidence_7d, custom_palette_name = "Dark2") +
-  labs(x = "Number of days since first case", y = "Incidence (last 7 days average)")
+us_incidence <- nyt_us %>% mutate(state = reorder(state, current_death)) %>%
+  make_log_graph(first_prevalence_date, incidence_7d) +
+  labs(x = "Number of days since first case", y = "Incidence (last 7 days average)", title = "New cases per day in US states") + 
+  scale_x_continuous(limits = c(0, 65))
   
 ### Death in pop
-nyt_us %>% 
+us_deaths <- nyt_us %>% 
   # mutate(state = reorder(state, current_death)) %>%
   make_log_graph(first_deaths_in_pop_date, deaths_in_pop) +
-  labs(x = "Number of days since first death", y = "Number of deaths per 100,000 population")
+  labs(x = "Number of days since first death", y = "Deaths per 100,000 inhabitants", title = "Total death count in US states adjusted for population size") + 
+  scale_x_continuous(limits = c(0, 65)) 
 
 ### Incidence by country
-ecdc %>% make_log_graph(first_prevalence_date, incidence_7d, selected_states = highlighted_countries, custom_palette_name = "Set1") + 
-  labs(x = "Number of days since first case", y = "Incidence (last 7 days average)")
+ec_incidence <- ecdc %>% make_log_graph(first_prevalence_date, incidence_7d, selected_states = highlighted_countries, custom_palette_name = "Set1") + 
+  labs(x = "Number of days since first case", y = "Incidence (last 7 days average)", title = "New cases per day in European countries") + 
+  scale_x_continuous(limits = c(0, 65))
 
 ### Death in pop
-ecdc %>% make_log_graph(first_deaths_in_pop_date, deaths_in_pop, selected_states = highlighted_countries, custom_palette_name = "Set1") + 
-  labs(x = "Number of days since first death", y = "Number of deaths per 100,000 population")
+ec_deaths <- ecdc %>% make_log_graph(first_deaths_in_pop_date, deaths_in_pop, selected_states = highlighted_countries, custom_palette_name = "Set1") + 
+  labs(x = "Number of days since first death", y = "Deaths per 100,000 inhabitants", title = "Total death count in European countries adjusted for population size") + 
+  scale_x_continuous(limits = c(0, 65)) + 
+  scale_y_log10(limits = c(NA, 100))
 
-us_eu <- bind_rows(nyt_us %>% filter(state %in% selected_states), ecdc %>% filter(state %in% highlighted_countries))
-us_eu %>% make_log_graph(first_prevalence_date, incidence_7d, selected_states = NULL)
-us_eu %>% make_log_graph(first_deaths_in_pop_date, mortality_7d, selected_states = NULL)
-us_eu %>% make_log_graph(first_deaths_in_pop_date, deaths_in_pop, selected_states = NULL)
+### Combine US and EU 
+us_eu <- bind_rows(nyt_us %>% filter(state %in% selected_us_states), ecdc %>% filter(state %in% highlighted_countries))
+
+### Incidence of cases
+us_eu_incidence <- us_eu %>% make_log_graph(first_prevalence_date, incidence_7d, selected_states = NULL) + 
+  labs(x = "Number of days since first case", y = "Incidence (last 7 days average)", title = "New cases per day in selected US states and European countries") + 
+  scale_x_continuous(limits = c(0, 65))
+
+### Mortality per 100,000 population 
+us_eu_mortality <- us_eu %>% make_log_graph(first_deaths_in_pop_date, mortality_7d, selected_states = NULL) + 
+  labs(x = "Number of days since first death", y = "Deaths per week per 100,000 population", title = "Weekly mortality in selected US states and European countries") + 
+  scale_x_continuous(limits = c(0, 65))
+
+### Cumulative deaths per population 
+us_eu_deaths <- us_eu %>% make_log_graph(first_deaths_in_pop_date, deaths_in_pop, selected_states = NULL) + 
+  labs(x = "Number of days since first death", y = "Number of deaths per 100,000 population", title = "Total death count in selected US states and European countries") + 
+  scale_x_continuous(limits = c(0, 65))
 
 
 
