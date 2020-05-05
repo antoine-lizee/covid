@@ -100,19 +100,19 @@ nyt_us %>%
 
 
 # Log graphs, adjusted --------------------------------------------------------------
-selected_us_states <- c("California", "New York", "Oregon", "Washington")
-make_log_graph <- function(df, first_date, y, selected_states = selected_us_states, pop_limit = 5e6, custom_palette_name = "Set1") {
+selected_us_states <- c("California", "New York", "Washington")
+make_log_graph <- function(df, first_date, y, selected_states = selected_us_states, pop_limit = 6e6, custom_palette_name = "Set1") {
   q_first_date <- enquo(first_date)
   q_y <- enquo(y)
   filtered_data <- df %>% filter(date > !! q_first_date, current_death > 100, !! q_y > 0, pop > pop_limit)
+  main_size <- if(is.null(selected_states))  1  else 0.7
   plot <- filtered_data %>% 
     ggplot(aes(x = date - !! q_first_date, y = !! q_y, color = state)) +
     scale_y_log10() +
-    geom_line(show.legend = FALSE) + ## aes(linetype = state)
+    geom_line(size = main_size, show.legend = FALSE) + ## aes(linetype = state)
     geom_text(data = . %>% get_labels_from_last() %>% filter(!state %in% selected_states), aes(label = state), hjust = -0.1, show.legend = FALSE) +
-    geom_line(data = . %>% filter(state %in% selected_states), size = 2, show.legend = FALSE) +
+    geom_line(data = . %>% filter(state %in% selected_states), size = 2, alpha = 0.6, show.legend = FALSE) +
     geom_label(data = . %>% get_labels_from_last() %>% filter(state %in% selected_states), aes(label = sprintf('%s (%.0f)', state, !! q_y)), hjust = -0.1, show.legend = FALSE) +
-    scale_size_manual(values=c(0.7, 2), guide = FALSE) +
     theme_minimal() +
     theme(text = element_text(size = 11),
           plot.title = element_text(hjust = 0.5), 
@@ -240,15 +240,25 @@ us_eu_incidence <- us_eu %>% make_log_graph(first_prevalence_date, incidence_7d,
   labs(x = "Number of days since first case", y = "Incidence (last 7 days average)", title = "New cases per day in selected US states and European countries") + 
   scale_x_continuous(limits = c(0, 65))
 
+make_fourth_of_july_ticks <- function(df) 
+  df %>% distinct(state, .keep_all = T) %>% mutate(fourth_of_july = as.Date('2020-07-04') - first_deaths_in_pop_date)
+
 ### Mortality per 100,000 population 
 us_eu_mortality <- us_eu %>% make_log_graph(first_deaths_in_pop_date, mortality_7d, selected_states = NULL) + 
   labs(x = "Number of days since first death", y = "Deaths per week per 100,000 population", title = "Weekly mortality in selected US states and European countries") + 
-  scale_x_continuous(limits = c(0, 65))
+  geom_segment(data = . %>% make_fourth_of_july_ticks
+    , aes(x = fourth_of_july, xend = fourth_of_july, y = 0.5, yend = 3, color = state)
+    , alpha = 0.6, size = 1, show.legend = FALSE) +
+  geom_text(data = . %>% make_fourth_of_july_ticks
+            , aes(x = fourth_of_july, y = 3, label = state)
+            , angle = 60, hjust = -0.1, vjust = 0, show.legend = FALSE) +
+  annotate(geom = 'label', label = "July 4, 2020", x = 106, y = 0.3, hjust = 0.5, vjust = -0.2, show.legend = FALSE) +
+  scale_size_manual(values=2, guide = FALSE)
+us_eu_mortality
 
 ### Cumulative deaths per population 
 us_eu_deaths <- us_eu %>% make_log_graph(first_deaths_in_pop_date, deaths_in_pop, selected_states = NULL) + 
   labs(x = "Number of days since first death", y = "Number of deaths per 100,000 population", title = "Total death count in selected US states and European countries") + 
   scale_x_continuous(limits = c(0, 65))
-
 
 

@@ -1,22 +1,20 @@
 ---
 title: "Should we postpone our July 2020 wedding?"
 author: "Isabelle Feldhaus, Antoine Lizée"
-date: "Updated 2020-05-03"
+date: "2020-05-03"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(fig.align = 'center', fig.width=7, fig.height=6, echo=FALSE)
 source("0. analysis.R")
 ```
 
-With the World Health Organization's declaration of the Covid-19 pandemic in March 2020, the looming question has been whether or not to postpone our July wedding. A difficult decision before us, we wanted to take a quick look at the numbers to give some confidence to our decision,[^1] while keeping in mind that there are two key dimensions to consider for a just decision: (1) health and (2) geopolitics. 
+With the World Health Organization's declaration of the Covid-19 pandemic in March 2020, the looming question has been whether or not to postpone our July wedding. A difficult decision before us, we wanted to take a quick look at the numbers to give some confidence to our decision, while keeping in mind that there are two key dimensions to consider: (1) health and (2) geopolitics. 
 
-[^1]: Basically, to convince ourselves.
+To be clear, we're not modeling or projecting anything here. We only wanted to look at the data ourselves since we couldn't find our questions answered out there[^1]. Since we figured that we're not the only nerds on this email list, we stitched the graphs together for your entertainment.
 
-To be clear, we're not modeling or projecting anything here. We only wanted to look at the data ourselves[^2] since we couldn't find our questions answered out there. Since we figured that we're not the only nerds in this email list, we stitched the graphs together for you. 
-
-[^2]: This is also Antoine's coping mechanism. 
+[^1]: This is also Antoine's coping mechanism. 
 
 We used data collated by the [New York Times](https://github.com/nytimes/covid-19-data/raw/master/us-states.csv) (yes, NYT appears to be the cleanest and most complete data source at the moment) and the [European CDC](https://opendata.ecdc.europa.eu/covid19/casedistribution/csv) from mid-February to May 3rd to get a picture of Covid-19 trajectories in the United States and selected European countries, respectively. We computed the cumulative cases and deaths over the course of the pandemic, incidence (cases per day), and mortality (deaths per day) and adjusted for population size for each state or country. 
 
@@ -26,15 +24,15 @@ Let's take a look.
 
 Indeed, there have been a lot of deaths in recent weeks...
 
-```{r deaths_per_day, echo=FALSE}
+```{r deaths_per_day}
 plot(deaths_per_day)
 ```
 
-This graph shows the number of deaths per day in the US. For comparison, at its peak, Covid-19 caused more than 2,000 fatalities per day when in normal times, we'd expect about 7,700 deaths each day on average. That's over 25%! 
+This graph shows the number of deaths per day in the US. For comparison, at its peak, Covid-19 caused more than **2,000** fatalities per day when in normal times, we'd expect about **7,700** deaths each day on average. That's over 25%! 
 
 Note the dips in the graph. These are weekends and, subsequently, pauses in data collection. Because of these idiosyncracies in reporting, all the following figures show values for the past 7 days. 
 
-```{r us_incidence, echo=FALSE}
+```{r us_incidence}
 us_incidence
 ```
 
@@ -44,7 +42,7 @@ New York and New Jersey are moving together. Massachusetts is coming to get them
 
 We also see plateauing. We can surmise that this mirrors the stay-home orders in various states. Good examples are Washington, New York, and Michigan (good luck finding this one). 
 
-```{r us_deaths, echo=FALSE}
+```{r us_deaths }
 us_deaths
 ```
 
@@ -54,13 +52,13 @@ Here, we look at total deaths since the beginning of the pandemic. The story is 
 
 ### What about Europe?
 
-```{r ec_incidence, echo=FALSE}
+```{r ec_incidence}
 ec_incidence
 ```
 
 It's easier to tell. They're all roughly behaving the same, apart from Sweden and the UK. The Covid-19 slowdown potentially induced by lockdowns is much more pronounced as shown by the sharp decrease in new cases over the last 20 days. 
 
-```{r ec_deaths, echo=FALSE}
+```{r ec_deaths}
 ec_deaths
 ```
 
@@ -70,7 +68,7 @@ Interestingly, we can see that France initially followed in the footsteps of Ita
 
 ### And now, what we've all been waiting for...Europe vs. US
 
-```{r us_eu_incidence, echo=FALSE}
+```{r us_eu_incidence}
 us_eu_incidence
 ```
 
@@ -78,7 +76,7 @@ New York got hit later than European countries, but hard and fast. It's astoundi
 
 California and Washington appear to be hanging out in a plateau, while Italy and France seem to have decidedly reduced the activity of the disease. 
 
-```{r us_eu_deaths, echo=FALSE}
+```{r us_eu_deaths}
 us_eu_deaths
 ```
 
@@ -90,7 +88,7 @@ Based on the downward trends that we see and assuming that there is no strong re
 
 [^3]: Antoine wanted to spend at least another 10 hours analyzing this. Isabelle would not allow it. 
 
-```{r us_eu_mortality, echo=FALSE}
+```{r us_eu_mortality, fig.width=10}
 us_eu_mortality
 ```
 
