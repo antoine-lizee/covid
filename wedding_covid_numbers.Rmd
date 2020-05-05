@@ -48,7 +48,7 @@ us_deaths
 
 Looking at cases alone is not enough: case reporting is highly variable depending on testing protocols and resources. 
 
-Here, we look at total deaths since the beginning of the pandemic. The story is the same for New York, New Jersey, and Massachusetts - with Michigan actively _distancing_ (ha) from them. Pennsylvania, Illinois, Indiana, and Maryland make a motley crew walking the middle path, while the rest seem to be following Washington's trajectory. This "rest" sees roughly 10 times fewer death per inhabitants than the "top" states.
+Here, we look at total deaths since the beginning of the pandemic. The story is the same for New York, New Jersey, and Massachusetts - with Michigan actively _distancing_ (ha) from them. Pennsylvania, Illinois, Indiana, and Maryland make a motley crew walking the middle path, while the rest seem to be following Washington's trajectory. This "rest" is seeing roughly 10 times fewer deaths per inhabitants than the "top" states.
 
 ### What about Europe?
 
@@ -64,7 +64,7 @@ ec_deaths
 
 Adjusting for population shows that all of the countries are roughly hanging out in the same ballpark with the exception of Germany, who either has a magic trick or is reporting deaths differently. 
 
-Interestingly, we can see that France initially followed in the footsteps of Italy but has recently curbed deaths and will likely end up with fewer. This might be a result of having started strong lockdown earlier in their trajectory - as a result of Italy's early meltdown.
+Interestingly, we can see that France initially followed in the footsteps of Italy but has recently curbed deaths and will likely end up with fewer. This might be a result of having started a strong lockdown earlier in their trajectory.
 
 ### And now, what we've all been waiting for...Europe vs. US
 
@@ -80,9 +80,9 @@ California and Washington appear to be hanging out in a plateau, while Italy and
 us_eu_deaths
 ```
 
-The Dynamics are all overall similar, with California being hit surprisingly late in the game. The end levels, though are significantly different, with France and Italy almost exactly between the worst-hit (New-York) and best-behaving (Calif. & Wash.) states from the US.
+Dynamics across states are similar overall, with California being hit surprisingly late in the game. However, their adjusted total death counts are significantly different: France and Italy lie almost exactly between the worst-hit (New York) and best-behaving (California and Washington) states in the US.
 
-Interestingly, we see that France & Italy report a higher level of mortality compared to California and Washington, but similar case counts. This illustrates differences in mesuring & reporting of Covid-19 cases and deaths.
+We see that France and Italy report a higher level of mortality compared to California and Washington, but similar case counts. This illustrates differences in measuring & reporting of Covid-19 cases and deaths.
 
 ### So what?
 
@@ -90,9 +90,9 @@ Interestingly, we see that France & Italy report a higher level of mortality com
 us_eu_mortality
 ```
 
-Based on the downward trends that we see and assuming that there is no strong rebound, there is some hope that, on the 4th of July, the medical threat of Covid-19 will have greatly diminished.
+Based on the downward trends that we see and assuming that there is no strong rebound, there is some hope that, on the 4th of July, the health threat of Covid-19 will have greatly diminished.
 
-On top of the uncertainty of the disease[^3], there is the uncertainty of international travel, border restrictions, and political context. The probability of COVID being under control on July 4 is high, but the probability that we don't have the legal right to party is quite high too. All in all, we couldn't gamble with our guests' nerves and risk a last-minute cancellation[^2].
+On top of the uncertainty of the disease[^3], there is the uncertainty of international travel, border restrictions, and political context. The probability of Covid-19 being under control on July 4th is high, but the probability that we don't have the legal right to party is quite high too. All in all, we couldn't gamble with our guests' nerves nor risk a last-minute cancellation[^2].
 
 In truth, we made the decision to postpone our wedding two weeks ago. As you can see, this was when we most of the states were continuing the climb to the top. Of course, we still believe postponement to be the right decision.[^4] Over these past couple of weeks, amidst our search for the sword that seals the darkness[^5], we have confirmed the changes with each of our vendors and made arrangements for the 14th of July 2021. 
 
@@ -105,4 +105,3 @@ In truth, we made the decision to postpone our wedding two weeks ago. As you can
 [^5]: This is a hint :) 
 
 #### We can't wait to laugh and dance with all of you beautiful humans! 
-
