@@ -252,9 +252,8 @@ us_eu_mortality <- us_eu %>% make_log_graph(first_deaths_in_pop_date, mortality_
   geom_text(data = . %>% make_fourth_of_july_ticks
             , aes(x = fourth_of_july, y = 3, label = state)
             , angle = 60, hjust = -0.1, vjust = 0, show.legend = FALSE) +
-  annotate(geom = 'label', label = "July 4, 2020", x = 106, y = 0.3, hjust = 0.5, vjust = -0.2, show.legend = FALSE) +
+  annotate(geom = 'label', label = "July 4, 2020", x = 106, y = 0.5, hjust = 0.5, vjust = 1.2) +
   scale_size_manual(values=2, guide = FALSE)
-us_eu_mortality
 
 ### Cumulative deaths per population 
 us_eu_deaths <- us_eu %>% make_log_graph(first_deaths_in_pop_date, deaths_in_pop, selected_states = NULL) + 

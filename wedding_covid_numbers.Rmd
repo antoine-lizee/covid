@@ -6,7 +6,7 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.align = 'center', fig.width=7, fig.height=6, echo=FALSE)
+knitr::opts_chunk$set(fig.align = 'center', fig.width=7, fig.height=6, echo=FALSE, message=FALSE)
 source("0. analysis.R")
 ```
 
@@ -14,7 +14,7 @@ With the World Health Organization's declaration of the Covid-19 pandemic in Mar
 
 To be clear, we're not modeling or projecting anything here. We only wanted to look at the data ourselves since we couldn't find our questions answered out there[^1]. Since we figured that we're not the only nerds on this email list, we stitched the graphs together for your entertainment.
 
-[^1]: This is also Antoine's coping mechanism. 
+[^1]: This is also our coping mechanism. 
 
 We used data collated by the [New York Times](https://github.com/nytimes/covid-19-data/raw/master/us-states.csv) (yes, NYT appears to be the cleanest and most complete data source at the moment) and the [European CDC](https://opendata.ecdc.europa.eu/covid19/casedistribution/csv) from mid-February to May 3rd to get a picture of Covid-19 trajectories in the United States and selected European countries, respectively. We computed the cumulative cases and deaths over the course of the pandemic, incidence (cases per day), and mortality (deaths per day) and adjusted for population size for each state or country. 
 
@@ -36,7 +36,7 @@ Note the dips in the graph. These are weekends and, subsequently, pauses in data
 us_incidence
 ```
 
-So, this graph is a mess. _But_ we see a few interesting trends. 
+So, this graph is a _mess_. But we see a few interesting trends. 
 
 New York and New Jersey are moving together. Massachusetts is coming to get them. All that is unsurprising given their geographical proximity and interconnections. 
 
@@ -48,7 +48,7 @@ us_deaths
 
 Looking at cases alone is not enough: case reporting is highly variable depending on testing protocols and resources. 
 
-Here, we look at total deaths since the beginning of the pandemic. The story is the same for New York, New Jersey, and Massachusetts. Pennsylvania, Illinois, Indiana, and Maryland make a motley crew walking the middle path, while the rest seem to be following Washington's trajectory. 
+Here, we look at total deaths since the beginning of the pandemic. The story is the same for New York, New Jersey, and Massachusetts - with Michigan actively _distancing_ (ha) from them. Pennsylvania, Illinois, Indiana, and Maryland make a motley crew walking the middle path, while the rest seem to be following Washington's trajectory. This "rest" is seeing roughly 10 times fewer deaths per inhabitants than the "top" states.
 
 ### What about Europe?
 
@@ -64,7 +64,7 @@ ec_deaths
 
 Adjusting for population shows that all of the countries are roughly hanging out in the same ballpark with the exception of Germany, who either has a magic trick or is reporting deaths differently. 
 
-Interestingly, we can see that France initially followed in the footsteps of Italy. However, having started strong lockdown earlier in their trajectory, has curbed deaths and will likely end up with fewer. 
+Interestingly, we can see that France initially followed in the footsteps of Italy but has recently curbed deaths and will likely end up with fewer. This might be a result of having started a strong lockdown earlier in their trajectory.
 
 ### And now, what we've all been waiting for...Europe vs. US
 
@@ -72,7 +72,7 @@ Interestingly, we can see that France initially followed in the footsteps of Ita
 us_eu_incidence
 ```
 
-New York got hit later than European countries, but hard and fast. It's astounding. We can see that it's struggling to rein in the virus as fast as its counterparts. 
+New York got hit later than European countries, but hard and fast. It's astounding. We can see that it's struggling to rein in the virus as fast as its US & European counterparts. 
 
 California and Washington appear to be hanging out in a plateau, while Italy and France seem to have decidedly reduced the activity of the disease. 
 
@@ -80,24 +80,28 @@ California and Washington appear to be hanging out in a plateau, while Italy and
 us_eu_deaths
 ```
 
-France and Italy report overall a higher level of mortality in the population compared to California and Washington, even though they seem to be in the same arena in terms of case count. This may be due to differences in reporting of Covid-19 cases, and potentially deaths. 
+Dynamics across states are similar overall, with California being hit surprisingly late in the game. However, their adjusted total death counts are significantly different: France and Italy lie almost exactly between the worst-hit (New York) and best-behaving (California and Washington) states in the US.
+
+We see that France and Italy report a higher level of mortality compared to California and Washington, but similar case counts. This illustrates differences in measuring & reporting of Covid-19 cases and deaths.
 
 ### So what?
 
-Based on the downward trends that we see and assuming that there is no strong rebound, there is some hope that, on the 4th of July, the threat of Covid-19 will have been diminished.[^3] On top of the uncertainty of the disease, there is the uncertainty of international travel and border restrictions. 
-
-[^3]: Antoine wanted to spend at least another 10 hours analyzing this. Isabelle would not allow it. 
-
-```{r us_eu_mortality, fig.width=10}
+```{r us_eu_mortality, fig.width=10, echo = FALSE}
 us_eu_mortality
 ```
 
-In truth, we made the decision to postpone our wedding at least two weeks ago. As you can see, this was when we all were continuing the climb to the top. Of course, we still believe postponement to be the right decision.[^4] 
+Based on the downward trends that we see and assuming that there is no strong rebound, there is some hope that, on the 4th of July, the health threat of Covid-19 will have greatly diminished.
 
-[^4]: Not to mention that we just found out that the _mairie_ (i.e. city hall) will not be allowing weddings at the moment. 
+On top of the uncertainty of the disease[^3], there is the uncertainty of international travel, border restrictions, and political context. The probability of Covid-19 being under control on July 4th is high, but the probability that we don't have the legal right to party is quite high too. All in all, we couldn't gamble with our guests' nerves nor risk a last-minute cancellation[^2].
 
-Over these past couple of weeks, amidst our search for the sword that seals the darkness[^5], we have confirmed the changes with each of our vendors and made arrangements for the 14th of July 2021. 
+In truth, we made the decision to postpone our wedding two weeks ago. As you can see, this was when we most of the states were continuing the climb to the top. Of course, we still believe postponement to be the right decision.[^4] Over these past couple of weeks, amidst our search for the sword that seals the darkness[^5], we have confirmed the changes with each of our vendors and made arrangements for the 14th of July 2021. 
 
-#### We can't wait to laugh and dance with all of you beautiful humans! 
+[^3]: Antoine wanted to spend at least another 10 hours analyzing this. Isabelle would not allow it. 
+
+[^2]: Two months before is not last-minute, right?
+
+[^4]: Not to mention that we just found out that the _mairie_ (i.e. city hall) will not be allowing weddings until mid-July as of today. 
 
 [^5]: This is a hint :) 
+
+#### We can't wait to laugh and dance with all of you beautiful humans! 
