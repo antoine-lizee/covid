@@ -1,7 +1,7 @@
 ---
 title: "Should we postpone our July 2020 wedding?"
 author: "Isabelle Feldhaus, Antoine Lizée"
-date: "2020-05-03"
+date: "Updated 2020-05-03"
 output: html_document
 ---
 
@@ -10,7 +10,13 @@ knitr::opts_chunk$set(echo = TRUE)
 source("0. analysis.R")
 ```
 
-With the World Health Organization's declaration of the Covid-19 pandemic in March 2020, the looming question has been whether or not to postpone our July wedding. A difficult decision before us, we wanted to take a look at the numbers to give some confidence to our decision, while keeping in mind that there are two key dimensions to consider for a just decision: (1) health and (2) geopolitics. 
+With the World Health Organization's declaration of the Covid-19 pandemic in March 2020, the looming question has been whether or not to postpone our July wedding. A difficult decision before us, we wanted to take a quick look at the numbers to give some confidence to our decision,[^1] while keeping in mind that there are two key dimensions to consider for a just decision: (1) health and (2) geopolitics. 
+
+[^1]: Basically, to convince ourselves.
+
+To be clear, we're not modeling or projecting anything here. We only wanted to look at the data ourselves[^2] since we couldn't find our questions answered out there. Since we figured that we're not the only nerds in this email list, we stitched the graphs together for you. 
+
+[^2]: This is also Antoine's coping mechanism. 
 
 We used data collated by the [New York Times](https://github.com/nytimes/covid-19-data/raw/master/us-states.csv) (yes, NYT appears to be the cleanest and most complete data source at the moment) and the [European CDC](https://opendata.ecdc.europa.eu/covid19/casedistribution/csv) from mid-February to May 3rd to get a picture of Covid-19 trajectories in the United States and selected European countries, respectively. We computed the cumulative cases and deaths over the course of the pandemic, incidence (cases per day), and mortality (deaths per day) and adjusted for population size for each state or country. 
 
@@ -36,7 +42,7 @@ So, this graph is a mess. _But_ we see a few interesting trends.
 
 New York and New Jersey are moving together. Massachusetts is coming to get them. All that is unsurprising given their geographical proximity and interconnections. 
 
-We also see a plateau. We can surmise that this mirrors the stay-home orders in various states. Good examples are Washington, New York, and Michigan (good luck finding this one). 
+We also see plateauing. We can surmise that this mirrors the stay-home orders in various states. Good examples are Washington, New York, and Michigan (good luck finding this one). 
 
 ```{r us_deaths, echo=FALSE}
 us_deaths
@@ -52,22 +58,48 @@ Here, we look at total deaths since the beginning of the pandemic. The story is 
 ec_incidence
 ```
 
-It's easier to tell. They're all roughly behaving the same. The Covid-19 slowdown created by lockdowns is much more pronounced as shown by the sharp decrease in new cases over the last 20 days. 
+It's easier to tell. They're all roughly behaving the same, apart from Sweden and the UK. The Covid-19 slowdown potentially induced by lockdowns is much more pronounced as shown by the sharp decrease in new cases over the last 20 days. 
 
 ```{r ec_deaths, echo=FALSE}
 ec_deaths
 ```
 
+Adjusting for population shows that all of the countries are roughly hanging out in the same ballpark with the exception of Germany, who either has a magic trick or is reporting deaths differently. 
 
+Interestingly, we can see that France initially followed in the footsteps of Italy. However, having started strong lockdown earlier in their trajectory, has curbed deaths and will likely end up with fewer. 
+
+### And now, what we've all been waiting for...Europe vs. US
 
 ```{r us_eu_incidence, echo=FALSE}
 us_eu_incidence
 ```
 
-```{r us_eu_mortality, echo=FALSE}
-us_eu_mortality
-```
+New York got hit later than European countries, but hard and fast. It's astounding. We can see that it's struggling to rein in the virus as fast as its counterparts. 
+
+California and Washington appear to be hanging out in a plateau, while Italy and France seem to have decidedly reduced the activity of the disease. 
 
 ```{r us_eu_deaths, echo=FALSE}
 us_eu_deaths
 ```
+
+France and Italy report overall a higher level of mortality in the population compared to California and Washington, even though they seem to be in the same arena in terms of case count. This may be due to differences in reporting of Covid-19 cases, and potentially deaths. 
+
+### So what?
+
+Based on the downward trends that we see and assuming that there is no strong rebound, there is some hope that, on the 4th of July, the threat of Covid-19 will have been diminished.[^3] On top of the uncertainty of the disease, there is the uncertainty of international travel and border restrictions. 
+
+[^3]: Antoine wanted to spend at least another 10 hours analyzing this. Isabelle would not allow it. 
+
+```{r us_eu_mortality, echo=FALSE}
+us_eu_mortality
+```
+
+In truth, we made the decision to postpone our wedding at least two weeks ago. As you can see, this was when we all were continuing the climb to the top. Of course, we still believe postponement to be the right decision.[^4] 
+
+[^4]: Not to mention that we just found out that the _mairie_ (i.e. city hall) will not be allowing weddings at the moment. 
+
+Over these past couple of weeks, amidst our search for the sword that seals the darkness[^5], we have confirmed the changes with each of our vendors and made arrangements for the 14th of July 2021. 
+
+#### We can't wait to laugh and dance with all of you beautiful humans! 
+
+[^5]: This is a hint :) 

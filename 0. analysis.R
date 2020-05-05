@@ -115,7 +115,8 @@ make_log_graph <- function(df, first_date, y, selected_states = selected_us_stat
     scale_size_manual(values=c(0.7, 2), guide = FALSE) +
     theme_minimal() +
     theme(text = element_text(size = 11),
-          plot.title = element_text(hjust = 0.5))
+          plot.title = element_text(hjust = 0.5), 
+          panel.grid.minor.y = element_blank())
   if (!is.na(custom_palette_name)) {
     n_states <- filtered_data %>% distinct(state) %>% nrow
     # state_colors <- colorRampPalette(brewer.pal(8, custom_palette_name))(n_states)
