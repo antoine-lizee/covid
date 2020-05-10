@@ -1,0 +1,60 @@
+---
+title: "Should we postpone our July 2020 wedding? - Graph Updates"
+author: "Isabelle Feldhaus, Antoine Lizée"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align = 'center', fig.width=7, fig.height=6, echo=FALSE, message=FALSE, warning=FALSE)
+use_report_date <- FALSE
+source("0. analysis.R")
+```
+
+
+### The (Not So) United States
+
+
+```{r deaths_per_day}
+plot(deaths_per_day)
+```
+
+```{r us_incidence}
+us_incidence
+```
+
+```{r us_deaths }
+us_deaths
+```
+
+
+### What about Europe?
+
+```{r ec_incidence}
+ec_incidence
+```
+
+
+```{r ec_deaths}
+ec_deaths
+```
+
+
+### And now, what we've all been waiting for...Europe vs. US
+
+```{r us_eu_incidence}
+us_eu_incidence
+```
+
+
+```{r us_eu_deaths}
+us_eu_deaths
+```
+
+
+### So what?
+
+```{r us_eu_mortality, fig.width=10, echo = FALSE}
+us_eu_mortality
+```
+

@@ -6,7 +6,8 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.align = 'center', fig.width=7, fig.height=6, echo=FALSE, message=FALSE)
+knitr::opts_chunk$set(fig.align = 'center', fig.width=7, fig.height=6, echo=FALSE, message=FALSE, warning=FALSE)
+use_report_date <- TRUE
 source("0. analysis.R")
 ```
 
@@ -18,7 +19,7 @@ To be clear, we're not modeling or projecting anything here. We only wanted to l
 
 We used data collated by the [New York Times](https://github.com/nytimes/covid-19-data/raw/master/us-states.csv) (yes, NYT appears to be the cleanest and most complete data source at the moment) and the [European CDC](https://opendata.ecdc.europa.eu/covid19/casedistribution/csv) from mid-February to May 3rd to get a picture of Covid-19 trajectories in the United States and selected European countries, respectively. We computed the cumulative cases and deaths over the course of the pandemic, incidence (cases per day), and mortality (deaths per day) and adjusted for population size for each state or country. 
 
-Let's take a look. 
+Let's take a look.
 
 ### The (Not So) United States
 
@@ -104,4 +105,14 @@ In truth, we made the decision to postpone our wedding two weeks ago. As you can
 
 [^5]: This is a hint :) 
 
-#### We can't wait to laugh and dance with all of you beautiful humans! 
+**We can't wait to laugh and dance with all of you beautiful humans!**
+
+---
+
+#### Update - May 10
+
+If you're here after May 5th, and you're interested in how those trends have changed, here are [all of the updated graphs](https://raw.githack.com/antoine-lizee/covid/master/graph_updates.html).
+
+Also, we're delighted to see that the [Financial Times](https://ig.ft.com/coronavirus-chart/?areas=usa&areas=gbr&cumulative=0&logScale=1&perMillion=1&values=deaths) picked up our analysis[^6] and published it the same day as we did in a much nicer format. We encourage you to check it out if you're curious!
+
+[^6]: Fake news :-) But we're happy to see that their pretty graphs match ours.

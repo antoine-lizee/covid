@@ -3,8 +3,17 @@ library(dplyr)
 library(stringr)
 library(RColorBrewer)
 
+if (! 'use_report_date' %in% ls()) {
+  use_report_date <- FALSE
+}
+
+nyt_us_states_url_report_date <- 'https://raw.githubusercontent.com/nytimes/covid-19-data/7f6009fcd3f422725ea7bafbabcacaf3b68a0fcb/us-states.csv'
 nyt_us_states_url <- 'https://github.com/nytimes/covid-19-data/raw/master/us-states.csv'
-nyt_us_raw <- readr::read_csv(nyt_us_states_url)
+if (use_report_date) {
+  nyt_us_raw <- readr::read_csv(nyt_us_states_url_report_date)
+} else {
+  nyt_us_raw <- readr::read_csv(nyt_us_states_url)
+}
 
 census_pop_filepath <- 'input/nst-est2019-01 - NST01.csv'
 state_pop_raw <- readr::read_csv(census_pop_filepath, skip = 3) %>% rename(state = 'X1')
@@ -162,12 +171,16 @@ ecdc_raw %>% filter(pop > 5e6, continent == 'Europe') %>% group_by(state) %>% ar
 selected_countries <- c("France", "Germany", "Italy", "Spain", "United_Kingdom", "Netherlands", "Belgium", "Sweden", "Switzerland")
 
 ecdc <- ecdc_raw %>%
-  filter(state %in% selected_countries) %>% 
+  filter(state %in% selected_countries) %>%
   group_by(state) %>% 
   arrange(date) %>% 
   mutate(cases = cumsum(d_cases), deaths = cumsum(d_deaths)) %>%
   add_analysis_columns(include_d = FALSE) %>%
   ungroup
+
+if (use_report_date) {
+  ecdc <- ecdc %>% filter(date <= max(nyt_us$date))
+}
 
 ## Double checking that Spain is annoying
 ecdc %>% count(state, dt) %>% ungroup %>% count(dt)
