@@ -26,7 +26,7 @@ Let's take a look.
 Indeed, there have been a lot of deaths in recent weeks...
 
 ```{r deaths_per_day}
-plot(deaths_per_day)
+deaths_per_day
 ```
 
 This graph shows the number of deaths per day in the US. For comparison, at its peak, Covid-19 caused more than **2,000** fatalities per day when in normal times, we'd expect about **7,700** deaths each day on average. That's over 25%! 

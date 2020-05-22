@@ -16,7 +16,7 @@ source("0. analysis.R")
 
 
 ```{r deaths_per_day}
-plot(deaths_per_day)
+shiny::div(plotly::ggplotly(deaths_per_day), align = 'center')
 ```
 
 ```{r us_incidence}

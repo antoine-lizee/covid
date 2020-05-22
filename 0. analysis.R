@@ -209,6 +209,8 @@ ecdc %>% make_log_graph(first_deaths_in_pop_date, mortality_7d, selected_states 
 
 # Conclusion --------------------------------------------------------------
 
+n_days_max <- 80
+
 ### Deaths per day in the US -- notice weekend dips
 deaths_per_day <- nyt_us %>% 
   group_by(date) %>% summarize_at(vars(contains('d_deaths')), sum, na.rm = TRUE) %>%
@@ -225,24 +227,24 @@ deaths_per_day <- nyt_us %>%
 us_incidence <- nyt_us %>% mutate(state = reorder(state, current_death)) %>%
   make_log_graph(first_prevalence_date, incidence_7d) +
   labs(x = "Number of days since first case", y = "Incidence (last 7 days average)", title = "New cases per day in US states") + 
-  scale_x_continuous(limits = c(0, 65))
+  scale_x_continuous(limits = c(0, n_days_max))
   
 ### Death in pop
 us_deaths <- nyt_us %>% 
   # mutate(state = reorder(state, current_death)) %>%
   make_log_graph(first_deaths_in_pop_date, deaths_in_pop) +
   labs(x = "Number of days since first death", y = "Deaths per 100,000 inhabitants", title = "Total death count in US states adjusted for population size") + 
-  scale_x_continuous(limits = c(0, 65)) 
+  scale_x_continuous(limits = c(0, n_days_max)) 
 
 ### Incidence by country
 ec_incidence <- ecdc %>% make_log_graph(first_prevalence_date, incidence_7d, selected_states = highlighted_countries, custom_palette_name = "Set1") + 
   labs(x = "Number of days since first case", y = "Incidence (last 7 days average)", title = "New cases per day in European countries") + 
-  scale_x_continuous(limits = c(0, 65))
+  scale_x_continuous(limits = c(0, n_days_max))
 
 ### Death in pop
 ec_deaths <- ecdc %>% make_log_graph(first_deaths_in_pop_date, deaths_in_pop, selected_states = highlighted_countries, custom_palette_name = "Set1") + 
   labs(x = "Number of days since first death", y = "Deaths per 100,000 inhabitants", title = "Total death count in European countries adjusted for population size") + 
-  scale_x_continuous(limits = c(0, 65)) + 
+  scale_x_continuous(limits = c(0, n_days_max)) + 
   scale_y_log10(limits = c(NA, 100))
 
 ### Combine US and EU 
@@ -251,7 +253,7 @@ us_eu <- bind_rows(nyt_us %>% filter(state %in% selected_us_states), ecdc %>% fi
 ### Incidence of cases
 us_eu_incidence <- us_eu %>% make_log_graph(first_prevalence_date, incidence_7d, selected_states = NULL) + 
   labs(x = "Number of days since first case", y = "Incidence (last 7 days average)", title = "New cases per day in selected US states and European countries") + 
-  scale_x_continuous(limits = c(0, 65))
+  scale_x_continuous(limits = c(0, n_days_max))
 
 make_fourth_of_july_ticks <- function(df) 
   df %>% distinct(state, .keep_all = T) %>% mutate(fourth_of_july = as.Date('2020-07-04') - first_deaths_in_pop_date)
@@ -271,6 +273,6 @@ us_eu_mortality <- us_eu %>% make_log_graph(first_deaths_in_pop_date, mortality_
 ### Cumulative deaths per population 
 us_eu_deaths <- us_eu %>% make_log_graph(first_deaths_in_pop_date, deaths_in_pop, selected_states = NULL) + 
   labs(x = "Number of days since first death", y = "Number of deaths per 100,000 population", title = "Total death count in selected US states and European countries") + 
-  scale_x_continuous(limits = c(0, 65))
+  scale_x_continuous(limits = c(0, n_days_max))
 
 
