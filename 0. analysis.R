@@ -209,7 +209,7 @@ ecdc %>% make_log_graph(first_deaths_in_pop_date, mortality_7d, selected_states 
 
 # Conclusion --------------------------------------------------------------
 
-n_days_max <- 80
+n_days_max <- 90
 
 ### Deaths per day in the US -- notice weekend dips
 deaths_per_day <- nyt_us %>% 
